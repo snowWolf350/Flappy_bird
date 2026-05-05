@@ -4,6 +4,7 @@ public class Player : MonoBehaviour
 {
     public Rigidbody2D _playerRigidBody;
     public float _flapStrength = 0.5f;
+    public float _yBounds = 0.7f;
 
     public ScoreUI _scoreUi;
     public GameObject _retryButton;
@@ -24,6 +25,11 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && _playerIsDead == false)
         {
             _playerRigidBody.linearVelocity += Vector2.up * _flapStrength;  
+        }
+        if(transform.position.y >= _yBounds || transform.position.y <= -_yBounds)
+        {
+            _playerIsDead = true;
+            _retryButton.SetActive(true);
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
